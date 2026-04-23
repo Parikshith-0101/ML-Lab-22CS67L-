@@ -184,3 +184,8 @@ else:
 
 # start = 'A'
 # goal = 'G'
+
+#OUTPUT
+# Visited Nodes: ['A', 'C', 'F', 'E', 'H', 'G']
+# Shortest Path: ['A', 'C', 'E', 'H', 'G']
+# Total Cost: 41

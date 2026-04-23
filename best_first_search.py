@@ -147,3 +147,92 @@ else:
 
 # start = 'A'
 # goal = 'G'
+
+#OUTPUT
+
+# Enter number of nodes: 8
+
+# Enter node names:
+# Node 1: A
+# Node 2: B
+# Node 3: C
+# Node 4: D
+# Node 5: E
+# Node 6: F
+# Node 7: G
+# Node 8: H
+
+# Enter heuristic values:
+# Heuristic value for A: 40
+# Heuristic value for B: 32
+# Heuristic value for C: 5
+# Heuristic value for D: 35
+# Heuristic value for E: 19
+# Heuristic value for F: 17
+# Heuristic value for G: 10
+# Heuristic value for H: 11
+
+# Enter neighbours and costs:
+
+# How many neighbours does A have? 3
+# Enter neighbour 1 of A: B
+# Enter cost from A to B: 11
+# Enter neighbour 2 of A: C
+# Enter cost from A to C: 14
+# Enter neighbour 3 of A: D
+# Enter cost from A to D: 7
+
+# How many neighbours does B have? 2
+# Enter neighbour 1 of B: A
+# Enter cost from B to A: 11
+# Enter neighbour 2 of B: E
+# Enter cost from B to E: 15
+
+# How many neighbours does C have? 4
+# Enter neighbour 1 of C: A
+# Enter cost from C to A: 14
+# Enter neighbour 2 of C: E
+# Enter cost from C to E: 8
+# Enter neighbour 3 of C: D
+# Enter cost from C to D: 18
+# Enter neighbour 4 of C: F
+# Enter cost from C to F: 10
+
+# How many neighbours does D have? 3
+# Enter neighbour 1 of D: A
+# Enter cost from D to A: 7
+# Enter neighbour 2 of D: F
+# Enter cost from D to F: 25
+# Enter neighbour 3 of D: C
+# Enter cost from D to C: 18
+
+# How many neighbours does E have? 3
+# Enter neighbour 1 of E: B
+# Enter cost from E to B: 15
+# Enter neighbour 2 of E: C
+# Enter cost from E to C: 8
+# Enter neighbour 3 of E: H
+# Enter cost from E to H: 9
+
+# How many neighbours does F have? 3
+# Enter neighbour 1 of F: G
+# Enter cost from F to G: 20
+# Enter neighbour 2 of F: C
+# Enter cost from F to C: 10
+# Enter neighbour 3 of F: D
+# Enter cost from F to D: 25
+
+# How many neighbours does G have? 0
+
+# How many neighbours does H have? 2
+# Enter neighbour 1 of H: E
+# Enter cost from H to E: 19
+# Enter neighbour 2 of H: G
+# Enter cost from H to G: 11
+
+# Enter start node: A
+# Enter goal node: G
+
+# Visited Order: ['A', 'C', 'F', 'G']
+# Best Path: ['A', 'C', 'F', 'G']
+# Total Cost: 44
