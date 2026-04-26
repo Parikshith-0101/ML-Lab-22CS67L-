@@ -150,3 +150,26 @@ nx.draw(
 
 plt.title("Alpha-Beta Pruning Visualization")
 plt.show()
+
+# Enter depth of tree: 4
+# Enter 16 terminal node values:
+# Value 1: 3
+# Value 2: 4
+# Value 3: 2 
+# Value 4: 1
+# Value 5: 7
+# Value 6: 8
+# Value 7: 9
+# Value 8: 10
+# Value 9: 2
+# Value 10: 11
+# Value 11: 1
+# Value 12: 12
+# Value 13: 14
+# Value 14: 9
+# Value 15: 13
+# Value 16: 16
+
+# Terminal Node Values: [3, 4, 2, 1, 7, 8, 9, 10, 2, 11, 1, 12, 14, 9, 13, 16]
+# Optimal Value: 3
+# Pruned Nodes: ['N3', 'N3', 'N9', 'N11', 'N3']
