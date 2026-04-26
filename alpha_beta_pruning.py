@@ -4,25 +4,37 @@ import matplotlib.pyplot as plt
 
 visited_nodes = []
 pruned_nodes = []
+node_values = {}
+
+def mark_subtree_pruned(node_index, depth, max_depth):
+    """Mark entire subtree as pruned"""
+    if depth > max_depth:
+        return
+    pruned_nodes.append(node_index)
+    if depth < max_depth:
+        mark_subtree_pruned(2 * node_index + 1, depth + 1, max_depth)
+        mark_subtree_pruned(2 * node_index + 2, depth + 1, max_depth)
+
 
 def alphabeta(depth, node_index, maximizing_player, values, alpha, beta, max_depth):
-    current_node = f"N{node_index}"
-    visited_nodes.append(current_node)
+    visited_nodes.append(node_index)
 
-    # Leaf node reached
+    # Leaf node
     if depth == max_depth:
-        return values[node_index]
+        leaf_index = node_index - (2**max_depth - 1)
+        val = values[leaf_index]
+        node_values[node_index] = val
+        return val
 
     if maximizing_player:
         best = -math.inf
 
         for i in range(2):
-            child_index = node_index * 2 + i
-            child_node = f"N{child_index}"
+            child = 2 * node_index + i + 1
 
             value = alphabeta(
                 depth + 1,
-                child_index,
+                child,
                 False,
                 values,
                 alpha,
@@ -33,25 +45,22 @@ def alphabeta(depth, node_index, maximizing_player, values, alpha, beta, max_dep
             best = max(best, value)
             alpha = max(alpha, best)
 
+            # Pruning
             if beta <= alpha:
-                # Remaining child is pruned
                 for j in range(i + 1, 2):
-                    pruned_child = f"N{node_index * 2 + j}"
-                    pruned_nodes.append(pruned_child)
+                    pruned_child = 2 * node_index + j + 1
+                    mark_subtree_pruned(pruned_child, depth + 1, max_depth)
                 break
-
-        return best
 
     else:
         best = math.inf
 
         for i in range(2):
-            child_index = node_index * 2 + i
-            child_node = f"N{child_index}"
+            child = 2 * node_index + i + 1
 
             value = alphabeta(
                 depth + 1,
-                child_index,
+                child,
                 True,
                 values,
                 alpha,
@@ -62,34 +71,27 @@ def alphabeta(depth, node_index, maximizing_player, values, alpha, beta, max_dep
             best = min(best, value)
             beta = min(beta, best)
 
+            # Pruning
             if beta <= alpha:
-                # Remaining child is pruned
                 for j in range(i + 1, 2):
-                    pruned_child = f"N{node_index * 2 + j}"
-                    pruned_nodes.append(pruned_child)
+                    pruned_child = 2 * node_index + j + 1
+                    mark_subtree_pruned(pruned_child, depth + 1, max_depth)
                 break
 
-        return best
+    node_values[node_index] = best
+    return best
 
 
 max_depth = int(input("Enter depth of tree: "))
-
 num_leaf_nodes = 2 ** max_depth
+
 print(f"Enter {num_leaf_nodes} terminal node values:")
-
-values = []
-for i in range(num_leaf_nodes):
-    value = int(input(f"Value {i+1}: "))
-    values.append(value)
-
+values = [int(input(f"Value {i+1}: ")) for i in range(num_leaf_nodes)]
 
 result = alphabeta(
-    0,
-    0,
-    True,
+    0, 0, True,
     values,
-    -math.inf,
-    math.inf,
+    -math.inf, math.inf,
     max_depth
 )
 
@@ -98,44 +100,44 @@ print("Optimal Value:", result)
 print("Pruned Nodes:", pruned_nodes)
 
 
-# Visualization
 G = nx.DiGraph()
 labels = {}
 pos = {}
 
 def build_tree(node_index, depth, x, y, spacing):
-    current_node = f"N{node_index}"
+    node_name = f"N{node_index}"
 
-    # Label leaf nodes with terminal values
-    if depth == max_depth:
-        labels[current_node] = str(values[node_index])
-    else:
-        labels[current_node] = current_node
+    # Show value for ALL nodes
+    val = node_values.get(node_index, "")
+    labels[node_name] = f"{node_name}\n{val}"
 
-    pos[current_node] = (x, y)
+    pos[node_name] = (x, y)
 
     if depth < max_depth:
-        left_child = f"N{node_index * 2}"
-        right_child = f"N{node_index * 2 + 1}"
+        left = 2 * node_index + 1
+        right = 2 * node_index + 2
 
-        G.add_edge(current_node, left_child)
-        G.add_edge(current_node, right_child)
+        G.add_edge(node_name, f"N{left}")
+        G.add_edge(node_name, f"N{right}")
 
-        build_tree(node_index * 2, depth + 1, x - spacing, y - 1, spacing / 2)
-        build_tree(node_index * 2 + 1, depth + 1, x + spacing, y - 1, spacing / 2)
+        build_tree(left, depth + 1, x - spacing, y - 1, spacing / 2)
+        build_tree(right, depth + 1, x + spacing, y - 1, spacing / 2)
 
-build_tree(0, 0, 0, 0, 4)
+
+build_tree(0, 0, 0, 0, 8)
 
 plt.figure(figsize=(14, 8))
 
 node_colors = []
 for node in G.nodes():
-    if node in pruned_nodes:
-        node_colors.append("red")         
-    elif node in visited_nodes:
-        node_colors.append("lightgreen")   
+    idx = int(node[1:])
+
+    if idx in pruned_nodes:
+        node_colors.append("red")          # pruned
+    elif idx in visited_nodes:
+        node_colors.append("lightgreen")   # explored
     else:
-        node_colors.append("lightblue")    
+        node_colors.append("lightblue")    # untouched
 
 nx.draw(
     G,
@@ -144,32 +146,9 @@ nx.draw(
     with_labels=True,
     node_color=node_colors,
     node_size=2500,
-    font_size=10,
+    font_size=9,
     font_weight='bold'
 )
 
-plt.title("Alpha-Beta Pruning Visualization")
+plt.title("Alpha-Beta Pruning Visualization (Corrected)")
 plt.show()
-
-# Enter depth of tree: 4
-# Enter 16 terminal node values:
-# Value 1: 3
-# Value 2: 4
-# Value 3: 2 
-# Value 4: 1
-# Value 5: 7
-# Value 6: 8
-# Value 7: 9
-# Value 8: 10
-# Value 9: 2
-# Value 10: 11
-# Value 11: 1
-# Value 12: 12
-# Value 13: 14
-# Value 14: 9
-# Value 15: 13
-# Value 16: 16
-
-# Terminal Node Values: [3, 4, 2, 1, 7, 8, 9, 10, 2, 11, 1, 12, 14, 9, 13, 16]
-# Optimal Value: 3
-# Pruned Nodes: ['N3', 'N3', 'N9', 'N11', 'N3']
