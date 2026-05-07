@@ -1,43 +1,89 @@
-ML Lab - 22CS67L
+# ML Lab - 22CS67L
 
-List of Programs
+A comprehensive collection of machine learning and artificial intelligence algorithms implemented in Python, covering foundational data structures, classical search algorithms, and machine learning classifiers.
 
-1 Simple python program using conditional statements, looping , 
-performing operations such as Insert , Update, Delete, Display, Sorting 
-and searching on data types like List, Tuple, Set, Dictionary. 
- 
-2 Visualize the n-dimensional data using Scatter plots, box plot, heat 
-maps, contour plots, 3D surface plots using python packages. 
- 
-3 Write a program to implement Hill Climbing Algorithm.  
-4   a. Write a program to implement the Best First Search BFS. algorithm.
-    b. Write a program to implement the A* algorithm. 
+## Table of Contents
 
-5 Write a program to implement Min-Max algorithm and Alpha-beta 
-pruning algorithm. 
+- [Overview](#overview)
+- [Fundamentals](#fundamentals)
+- [Search Algorithms](#search-algorithms)
+- [Classification](#classification)
+- [Clustering](#clustering)
+- [Dimensionality Reduction](#dimensionality-reduction)
+- [Neural Networks](#neural-networks)
 
-6 Write a program to develop the Naive Bayes classifier based on split up 
-of training and testing dataset as 90-10, 70-30. 
-a. Iris dataset 
-b. Titanic dataset 
- 
-7 Write a program to develop the KNN classifier for the k values as 3,5,7 
-based on split up of training and testing dataset as 90-10, 70-30, 
-a. Glass dataset 
-b. Fruit dataset  
-using the different distance metrics like Euclidean and Manhattan 
-distance. 
- 
-8 Write a program to perform unsupervised K-means clustering techniques  
+## Overview
 
-9 Write a program to perform agglomerative clustering based on single
-linkage, complete-linkage criteria. 
- 
-10 Write a program to develop Principal Component Analysis PCA 
-algorithms. 
- 
-11 Write a program to develop Linear Discriminant Analysis LDA. 
-algorithms. 
- 
-12 Write a Program to develop simple single layer perceptron to implement 
-AND, OR Boolean functions. 
+This repository contains implementations of core machine learning and AI concepts, from basic Python data structures to advanced classification and clustering techniques. All programs are developed following the curriculum requirements of the 22CS67L course.
+
+## Fundamentals
+
+### Program 1: Data Structures & Operations
+Basic Python program demonstrating conditional statements and loops with comprehensive operations on fundamental data types:
+- **Operations**: Insert, Update, Delete, Display, Sorting, Searching
+- **Data Types**: Lists, Tuples, Sets, Dictionaries
+
+### Program 2: Data Visualization
+N-dimensional data visualization using various Python plotting techniques:
+- Scatter plots
+- Box plots
+- Heat maps
+- Contour plots
+- 3D surface plots
+
+## Search Algorithms
+
+### Program 3: Hill Climbing Algorithm
+Implementation of the Hill Climbing optimization algorithm for local search problems.
+
+### Program 4: Best First Search & A* Algorithm
+- **4a**: Best First Search (BFS) algorithm
+- **4b**: A* search algorithm with heuristic evaluation
+
+### Program 5: Game Playing Algorithms
+Adversarial search algorithms for game trees:
+- Min-Max algorithm
+- Alpha-Beta pruning
+
+## Classification
+
+### Program 6: Naive Bayes Classifier
+Probabilistic classifier implementation with multiple train-test splits:
+- **Train-Test Splits**: 90-10, 70-30
+- **Datasets**:
+  - Iris dataset
+  - Titanic dataset
+
+### Program 7: K-Nearest Neighbors (KNN) Classifier
+Instance-based classifier with configurable k values:
+- **K Values**: 3, 5, 7
+- **Train-Test Splits**: 90-10, 70-30
+- **Distance Metrics**: Euclidean, Manhattan
+- **Datasets**:
+  - Glass dataset
+  - Fruit dataset
+
+## Clustering
+
+### Program 8: K-Means Clustering
+Unsupervised learning algorithm for partitioning data into k clusters.
+
+### Program 9: Agglomerative Hierarchical Clustering
+Hierarchical clustering implementation with linkage criteria:
+- Single-linkage clustering
+- Complete-linkage clustering
+
+## Dimensionality Reduction
+
+### Program 10: Principal Component Analysis (PCA)
+Linear dimensionality reduction technique for identifying principal components and reducing feature space.
+
+### Program 11: Linear Discriminant Analysis (LDA)
+Supervised dimensionality reduction technique for maximizing class separability.
+
+## Neural Networks
+
+### Program 12: Single Layer Perceptron
+Basic neural network implementation for Boolean logic functions:
+- AND function
+- OR function 
