@@ -10,7 +10,7 @@ and searching on data types like List, Tuple, Set, Dictionary.
 maps, contour plots, 3D surface plots using python packages. 
  
 3 Write a program to implement Hill Climbing Algorithm.  
-4   a. Write a program to implement the Best First Search BFS. algorithm. 
+4   a. Write a program to implement the Best First Search BFS. algorithm.
     b. Write a program to implement the A* algorithm. 
 
 5 Write a program to implement Min-Max algorithm and Alpha-beta 
