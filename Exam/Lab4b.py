@@ -1,54 +1,54 @@
-def a_star_algorithm(graph, start, goal,h):
+def a_star(graph, start, goal, h):
 
     open_list = [start]
     closed_list = set()
 
-    g = {start:0}
-
-    parents = {start:start}
+    g = {start: 0}
+    parent = {start: None}
 
     while open_list:
 
-        open_list.sort(key=lambda v: g[v] + h[v])
-        n = open_list.pop(0)
+        # Select node with minimum f(n)=g(n)+h(n)
+        current = min(open_list, key=lambda x: g[x] + h[x])
 
-        # If node is goal then construct the path and return
-        if n == goal:
-            reconst_path = []
+        if current == goal:
 
-            while parents[n] != n:
-                reconst_path.append(n)
-                n = parents[n]
+            path = []
 
-            reconst_path.append(start)
-            reconst_path.reverse()
+            while current is not None:
+                path.append(current)
+                current = parent[current]
 
-            print(f'Path found: {reconst_path} with cost: {g[goal]}')
-            return reconst_path
+            path.reverse()
 
-        for (m, weight) in graph[n]:
-        # if m is first visited, add it to open_list and note its parent
-            if m not in open_list and m not in closed_list:
-                open_list.append(m)
-                parents[m] = n
-                g[m] = g[n] + weight
+            print("Path:", path)
+            print("Cost:", g[goal])
 
-            # otherwise, check if it's quicker to first visit n, then m
-            # and if it is, update parent and g data
-            # and if the node was in the closed_list, move it to open_list
-            else:
-                if g[m] > g[n] + weight:
-                    g[m] = g[n] + weight
-                    parents[m] = n
+            return path
 
-                    if m in closed_list:
-                        closed_list.remove(m)
-                        open_list.append(m)
+        open_list.remove(current)
+        closed_list.add(current)
 
-        # Node's neighbours are visited. Now put node to closed list.
-        closed_list.add(n)
+        for neighbour, cost in graph[current]:
 
-    print('Path does not exist!')
+            new_cost = g[current] + cost
+
+            if neighbour not in open_list and neighbour not in closed_list:
+
+                open_list.append(neighbour)
+                parent[neighbour] = current
+                g[neighbour] = new_cost
+
+            elif new_cost < g.get(neighbour, float('inf')):
+
+                g[neighbour] = new_cost
+                parent[neighbour] = current
+
+                if neighbour in closed_list:
+                    closed_list.remove(neighbour)
+                    open_list.append(neighbour)
+
+    print("No Path Found")
     return None
 
 
@@ -56,10 +56,18 @@ graph = {
     'S': [('A', 1), ('G', 10)],
     'A': [('B', 2), ('C', 1)],
     'B': [('D', 5)],
-    'C': [('D', 3),('G', 4)],
-    'D': [('G', 2)]
+    'C': [('D', 3), ('G', 4)],
+    'D': [('G', 2)],
+    'G': []
 }
 
-h = {'A': 3, 'B': 4, 'C': 2, 'D': 6, 'G': 0, 'S': 5}
+h = {
+    'S': 5,
+    'A': 3,
+    'B': 4,
+    'C': 2,
+    'D': 6,
+    'G': 0
+}
 
-a_star_algorithm(graph, 'S', 'G',h)
+a_star(graph, 'S', 'G', h)
